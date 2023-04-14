@@ -1,5 +1,6 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     screens: {
       sm: "480px",
@@ -34,7 +35,8 @@ module.exports = {
     },
     minWidth : {
       "2rem" : "2rem",
-      "130px" : "130px"
+      "130px" : "130px",
+      "1500px" : "1500px",
     },
     minHeight: {
       "1150px": "1150px",
