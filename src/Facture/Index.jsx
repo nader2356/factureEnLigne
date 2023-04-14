@@ -1,15 +1,35 @@
 import React, { useContext, useEffect, useState } from "react";
+import Fournisseur from "../Component/detail_content/Fournisseur";
 
 
 
 export default function Index() {
  
+    
+      const initialStateFour = {
+        nomSociete: "",
+        emailSociete: "",
+        telephoneSociete: "",
+        adresseRueSociete: "",
+        villeSociete: "",
+        codePostalSociete: "",
+      };
+    
 
+      const [formFour, setFormFour] = useState(initialStateFour);
+    
+    
+      const handleChangeFour = async (e) => {
+        const { name, value } = e.target;
+        setFormFour({ ...formFour, [name]: value });
+      };
+
+     
  
 
   return (
     <div className=" ">
-      <div className=" container  w-full md:w-full lg:w-full sm:w-full md:mx-auto lg:mx-auto sm:mx-auto h-screen md:px-4  lg:px-4   sm:px-4  ">
+      <div className=" container  w-full  md:mx-auto lg:mx-auto sm:mx-auto h-screen md:px-4  lg:px-4   sm:px-4  ">
         <div className="flex flex-wrap   -ml-4">
           <div className=" relative grid w-full grid-cols-1  px-4">
             <div className="bg-white  w-full shadow-lg  my-12">
@@ -29,7 +49,11 @@ export default function Index() {
                 </div>
                 <div className="  px-12">
                   <div className="grid  lg:grid-cols-2 -mx-4 relative  w-full lg:px-4  ">
-                  //on va metter ici le formulaire de fournisseur et le formulaire de client
+                  <Fournisseur
+                      formFour={formFour}
+                      setFormFour={setFormFour}
+                     handleChangeFour={handleChangeFour}
+                    ></Fournisseur>
                   </div>
                 </div>
 
