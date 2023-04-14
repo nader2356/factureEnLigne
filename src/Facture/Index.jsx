@@ -18,12 +18,12 @@ export default function Index() {
  
     
       const initialStateFour = {
-        nomSociete: "",
-        emailSociete: "",
-        telephoneSociete: "",
-        adresseRueSociete: "",
-        villeSociete: "",
-        codePostalSociete: "",
+        nom: "",
+        email: "",
+        telephone: "",
+        adresse: "",
+        Ville: "",
+        codePostal: "",
       };
     
 

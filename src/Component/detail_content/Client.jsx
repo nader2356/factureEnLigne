@@ -1,12 +1,12 @@
-
 import React, { useEffect, useState } from "react";
-
-
+import PopoverClient from "../ui/PopoverClient";
+import logo from "../../assets/down-arrow.png";
 
 export default function Client({ formValues, setFormValues }) {
   const [toggleShowOfClient, setToggleShowOfClient] = useState(false);
-  
+  const [selectedClient, setSelected] = useState("");
   const [showDetailOfAdresse, setShowDetailOfAdresse] = useState(false);
+  const [openListClient, setOpenList] = useState(false);
   const { nom, email, telephone, adresse, Ville, codePostal } = formValues;
 
   const changeNom = (e) => {
@@ -24,16 +24,12 @@ export default function Client({ formValues, setFormValues }) {
       ...formValues,
       email: e.target.value,
     });
-
-  
   };
   const changeTelephone = (e) => {
     setFormValues({
       ...formValues,
       telephone: e.target.value,
     });
-
-    
   };
 
   const changeAdresseRue = (e) => {
@@ -42,31 +38,24 @@ export default function Client({ formValues, setFormValues }) {
       adresseRue: e.target.value,
     });
 
-   
     changeCodePostal(e);
     changeVille(e);
   };
 
   const changeCodePostal = (e) => {
-    
-      setFormValues({
-        ...formValues,
-       codePostal: e.target.value,
-      });
-      
-   
+    setFormValues({
+      ...formValues,
+      codePostal: e.target.value,
+    });
   };
 
   const changeVille = (e) => {
-   
-      setFormValues({
-        ...formValues,
-        Ville: e.target.value,
-      });
-      
-    
+    setFormValues({
+      ...formValues,
+      Ville: e.target.value,
+    });
   };
-      
+
   return (
     <div className="w-full lg:pt-9  md:mb-4">
       <h3 className="text-1.75rem font-medium text-blackj lg:-ml-28 md:mb-4">
@@ -78,15 +67,21 @@ export default function Client({ formValues, setFormValues }) {
           <span className=" lg:overflow-visible lg:opacity-100 lg:mr-20 md:-mr-8  lg:-mt-4  md:max-w-1/4 md:overflow-hidden md:opacity-0">
             Nom
           </span>
-          <input
-            type="text"
-            className="border-solid border-bg_input w-full  py-2 px-4 md:mb-4  bg-white border-default   "
-            name="nom"
-            onChange={(e) => changeNom(e)}
-            placeholder="ex : Proxym"
-            value={nom}
-          ></input>
          
+           
+           
+          
+            <PopoverClient
+              setSelected={setSelected}
+              changeNom={changeNom}
+              setOpenList={setOpenList}
+              openListClient={openListClient}
+              selectedClient={selectedClient}
+              formValues={formValues}
+              setFormValues={setFormValues}
+              
+            ></PopoverClient>
+          
         </div>
 
         <div className=" md:-mt-1 md:flex md:items-center  ">
