@@ -1,36 +1,92 @@
-import React, { useState } from "react";
-const Fournisseur = ({formFour,setFormFour,handleChangeFour}) => {
-  const [showDetailOfAdresse, setShowDetailOfAdresse] = useState(false);
-  const toggleShow = () => setShowDetailOfAdresse((prev) => !prev);
+
+import React, { useEffect, useState } from "react";
 
 
-  const { nomSociete,emailSociete,telephoneSociete,adresseRueSociete,villeSociete,codePostalSociete} = formFour; 
 
-  const handleChangeAdresse = (e) => {
-    setFormFour({
-      ...formFour,
-      adresseRueSociete: e.target.value,
-    });
-    toggleShow();
-  };
+export default function Client({ formValues, setFormValues }) {
+  const [toggleShowOfClient, setToggleShowOfClient] = useState(false);
   
-  return (
-    <div className="w-full lg:pt-9 md:mb-4    ">
-      <h3 className="text-1.75rem font-medium text-blackj lg:-ml-96 lg:mr-16 md:mb-4">De</h3>
+  const [showDetailOfAdresse, setShowDetailOfAdresse] = useState(false);
+  const { nom, email, telephone, adresse, Ville, codePostal } = formValues;
 
-      <form className=" ">
+  const changeNom = (e) => {
+    setFormValues({
+      ...formValues,
+      nom: e.target.value,
+    });
+
+    setToggleShowOfClient(true);
+  };
+  const changeEmail = (e) => {
+    e.target.name = "email";
+
+    setFormValues({
+      ...formValues,
+      email: e.target.value,
+    });
+
+  
+  };
+  const changeTelephone = (e) => {
+    setFormValues({
+      ...formValues,
+      telephone: e.target.value,
+    });
+
+    
+  };
+
+  const changeAdresseRue = (e) => {
+    setFormValues({
+      ...formValues,
+      adresseRue: e.target.value,
+    });
+
+   
+    changeCodePostal(e);
+    changeVille(e);
+  };
+
+  const changeCodePostal = (e) => {
+    
+      setFormValues({
+        ...formValues,
+       codePostal: e.target.value,
+      });
+      
+   
+  };
+
+  const changeVille = (e) => {
+   
+      setFormValues({
+        ...formValues,
+        Ville: e.target.value,
+      });
+      
+    
+  };
+      
+  return (
+    <div className="w-full lg:pt-9  md:mb-4">
+      <h3 className="text-1.75rem font-medium text-blackj lg:-ml-28 md:mb-4">
+        Adresse de facturation
+      </h3>
+
+      <form className=" lg:ml-12 w-full lg:pr-6">
         <div className="lg:mt-4 md:mt-8 md:flex md:items-center ">
           <span className=" lg:overflow-visible lg:opacity-100 lg:mr-20 md:-mr-8  lg:-mt-4  md:max-w-1/4 md:overflow-hidden md:opacity-0">
             Nom
           </span>
           <input
             type="text"
-            className="border-solid border-bg_input w-full   py-2 px-4 md:mb-4  bg-white border-default   "
-            name="nomSociete"
-            onChange={handleChangeFour}
+            className="border-solid border-bg_input w-full  py-2 px-4 md:mb-4  bg-white border-default   "
+            name="nom"
+            onChange={(e) => changeNom(e)}
             placeholder="ex : Proxym"
-            value={nomSociete}
+            value={nom}
           ></input>
+         
         </div>
 
         <div className=" md:-mt-1 md:flex md:items-center  ">
@@ -40,10 +96,10 @@ const Fournisseur = ({formFour,setFormFour,handleChangeFour}) => {
           <input
             type="text"
             className="border-solid border-bg_input w-full  lg:pr-10   md:mb-4 py-2 pl-4 bg-white border-default "
-            name="emailSociete"
-            onChange={handleChangeFour}
+            name="email"
+            onChange={(e) => changeEmail(e)}
             placeholder="ex: proxym@gmail.com"
-            value={emailSociete}
+            value={email}
           ></input>
         </div>
         <div className=" md:-mt-1 md:flex md:items-center  ">
@@ -52,11 +108,11 @@ const Fournisseur = ({formFour,setFormFour,handleChangeFour}) => {
           </span>
           <input
             type="text"
-            onChange={(e) => handleChangeAdresse(e)}
-            className="border-solid border-bg_input w-full  md:mb-4  py-2 px-4 bg-white border-default "
-            name="adresseRueSociete"
+            className="border-solid border-bg_input w-full   md:mb-4  py-2 px-4 bg-white border-default "
+            name="adresseRue"
             placeholder="ex: Rue louis marlouf"
-            value={adresseRueSociete}
+            onChange={(e) => changeAdresseRue(e)}
+            value={adresse}
           ></input>
         </div>
         {showDetailOfAdresse && (
@@ -64,21 +120,21 @@ const Fournisseur = ({formFour,setFormFour,handleChangeFour}) => {
             <div className=" md:-mt-1  md:flex md:items-center  ">
               <input
                 type="number"
-                onChange={handleChangeFour}
                 className="border-solid border-bg_input lg:ml-40 w-full   md:mb-4  py-2 px-4 bg-white border-default "
-                name="codePostalsociete"
+                name="CodePostal"
                 placeholder="ex: 4045"
-                value={codePostalSociete}
+                onChange={(e) => changeCodePostal(e)}
+                value={codePostal}
               ></input>
             </div>
             <div className=" md:-mt-1  md:flex md:items-center  ">
               <input
                 type="text"
-                onChange={handleChangeFour}
                 className="border-solid border-bg_input w-full   md:mb-4  lg:ml-40 py-2 px-4 bg-white border-default "
-                name="villesociete"
+                name="Ville"
                 placeholder="ex: Sousse"
-                value={villeSociete}
+                onChange={(e) => changeVille(e)}
+                value={Ville}
               ></input>
             </div>
           </>
@@ -90,14 +146,13 @@ const Fournisseur = ({formFour,setFormFour,handleChangeFour}) => {
           <input
             type="number"
             className="border-solid border-bg_input w-full    md:mb-4 py-2 px-4 bg-white border-default "
-            name="telephoneSociete"
-            onChange={handleChangeFour}
+            name="Telephone"
             placeholder="ex : 207512650"
-            value={telephoneSociete}
+            onChange={(e) => changeTelephone(e)}
+            value={telephone}
           ></input>
         </div>
       </form>
     </div>
   );
-};
-export default Fournisseur;
+}

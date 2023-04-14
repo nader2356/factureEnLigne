@@ -1,9 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import Fournisseur from "../Component/detail_content/Fournisseur";
+import Client from "../Component/detail_content/Client";
 
 
 
 export default function Index() {
+
+
+    const initialStateClient = {
+        nom: "",
+        email: "",
+        telephone: "",
+        adresseRue: "",
+        ville: "",
+        codePostal: "",
+      };
  
     
       const initialStateFour = {
@@ -17,7 +28,7 @@ export default function Index() {
     
 
       const [formFour, setFormFour] = useState(initialStateFour);
-    
+      const [formValues, setFormValues] = useState(initialStateFour);
     
       const handleChangeFour = async (e) => {
         const { name, value } = e.target;
@@ -54,6 +65,12 @@ export default function Index() {
                       setFormFour={setFormFour}
                      handleChangeFour={handleChangeFour}
                     ></Fournisseur>
+                   <Client
+                    formValues={formValues}
+                    setFormValues={setFormValues}
+                  
+                   ></Client>
+
                   </div>
                 </div>
 
