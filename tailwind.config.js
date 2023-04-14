@@ -31,11 +31,13 @@ module.exports = {
       "1/4": "25%",
       "0.5rem" : "0.5rem",
       "3rem" : "3rem",
+      "100%" : "100%"
      
     },
     minWidth : {
       "2rem" : "2rem",
       "130px" : "130px",
+      "400px" : "400px",
       "1500px" : "1500px",
     },
     minHeight: {

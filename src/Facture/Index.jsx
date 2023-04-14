@@ -1,42 +1,40 @@
 import React, { useContext, useEffect, useState } from "react";
 import Fournisseur from "../Component/detail_content/Fournisseur";
 import Client from "../Component/detail_content/Client";
-
-
+import DatedeCommande from "../Component/detail_content/DatedeCommande";
 
 export default function Index() {
+  const initialStateClient = {
+    nom: "",
+    email: "",
+    telephone: "",
+    adresseRue: "",
+    ville: "",
+    codePostal: "",
+  };
 
+  const initialStateFour = {
+    nom: "",
+    email: "",
+    telephone: "",
+    adresse: "",
+    Ville: "",
+    codePostal: "",
+  };
 
-    const initialStateClient = {
-        nom: "",
-        email: "",
-        telephone: "",
-        adresseRue: "",
-        ville: "",
-        codePostal: "",
-      };
- 
-    
-      const initialStateFour = {
-        nom: "",
-        email: "",
-        telephone: "",
-        adresse: "",
-        Ville: "",
-        codePostal: "",
-      };
-    
+  const initialStateDateCommande = {
+    dateLivraison: "",
+    deteDaFacture: "",
+    dateDecheance: "",
+  };
 
-      const [formFour, setFormFour] = useState(initialStateFour);
-      const [formValues, setFormValues] = useState(initialStateFour);
-    
-      const handleChangeFour = async (e) => {
-        const { name, value } = e.target;
-        setFormFour({ ...formFour, [name]: value });
-      };
-
-     
- 
+  const [formFour, setFormFour] = useState(initialStateFour);
+  const [formValues, setFormValues] = useState(initialStateFour);
+  const [formCommande, setFormCommande] = useState(initialStateDateCommande);
+  const handleChangeFour = async (e) => {
+    const { name, value } = e.target;
+    setFormFour({ ...formFour, [name]: value });
+  };
 
   return (
     <div className=" ">
@@ -60,32 +58,32 @@ export default function Index() {
                 </div>
                 <div className="  px-12">
                   <div className="grid  lg:grid-cols-2 -mx-4 relative  w-full lg:px-4  ">
-                  <Fournisseur
+                    <Fournisseur
                       formFour={formFour}
                       setFormFour={setFormFour}
-                     handleChangeFour={handleChangeFour}
+                      handleChangeFour={handleChangeFour}
                     ></Fournisseur>
-                   <Client
-                    formValues={formValues}
-                    setFormValues={setFormValues}
-                  
-                   ></Client>
-
+                    <Client
+                      formValues={formValues}
+                      setFormValues={setFormValues}
+                    ></Client>
                   </div>
                 </div>
 
                 <div className="border-t-default border-solid border-divider  mt-8 w-full  "></div>
                 <div className="  px-12">
                   <div className="grid  lg:grid-cols-2 md:grid-cols-1 -mx-4 relative  w-full lg:px-4  ">
-                  //on va mettre ici le formulaire de date
+                    <DatedeCommande
+                      formCommande={formCommande}
+                      setFormCommande={setFormCommande}
+                    ></DatedeCommande>
                   </div>
                 </div>
                 <div className="  px-10">
                   <div className="grid  grid-cols-1  relative  w-full   ">
-                  //on va mettre ici le tableau qui contient pulsieur ligne de commande
+                    //on va mettre ici le tableau qui contient pulsieur ligne de
+                    commande
                   </div>
-
-                 
                 </div>
               </div>
             </div>
