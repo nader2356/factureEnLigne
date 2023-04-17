@@ -67,21 +67,16 @@ export default function Client({ formValues, setFormValues }) {
           <span className=" lg:overflow-visible lg:opacity-100 lg:mr-20 md:-mr-8  lg:-mt-4  md:max-w-1/4 md:overflow-hidden md:opacity-0">
             Nom
           </span>
-         
-           
-           
-          
-            <PopoverClient
-              setSelected={setSelected}
-              changeNom={changeNom}
-              setOpenList={setOpenList}
-              openListClient={openListClient}
-              selectedClient={selectedClient}
-              formValues={formValues}
-              setFormValues={setFormValues}
-              
-            ></PopoverClient>
-          
+
+          <PopoverClient
+            setSelected={setSelected}
+            changeNom={changeNom}
+            setOpenList={setOpenList}
+            openListClient={openListClient}
+            selectedClient={selectedClient}
+            formValues={formValues}
+            setFormValues={setFormValues}
+          ></PopoverClient>
         </div>
 
         <div className=" md:-mt-1 md:flex md:items-center  ">

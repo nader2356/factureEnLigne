@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { API, Token } from "../../util/constante";
-import logo from "../../assets/down-arrow.png";
+
 import axios from "axios";
 const PopoverClient = ({
   setSelected,
@@ -71,7 +71,7 @@ const PopoverClient = ({
               type="text"
               value={nom}
               onChange={changeNom}
-              className="border-solid border-bg_input w-full lg:pr-36 md:pr-96  py-2 px-4 md:mb-4  bg-white border-default   "
+              className="border-solid border-bg_input w-full lg:pr-36 md:pr-80   py-2 px-4 md:mb-4  bg-white border-default   "
               placeholder="ex : Proxym"
             ></input>
 

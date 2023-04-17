@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import Fournisseur from "../Component/detail_content/Fournisseur";
 import Client from "../Component/detail_content/Client";
 import DatedeCommande from "../Component/detail_content/DatedeCommande";
+import TableauDeCommande from "../Component/detail_content/TableauDeCommande";
+import Footer from "../Component/detail_content/Footer";
 
 export default function Index() {
   const initialStateClient = {
@@ -22,19 +24,58 @@ export default function Index() {
     codePostal: "",
   };
 
+  const initialState = {
+    nom: "",
+    email: "",
+    telephone: "",
+    adresse: "",
+    Ville: "",
+    codePostal: "",
+  };
+
+  const initialStateligneDeCommande = [
+    {
+      nom: "",
+      prix: 0,
+      categorie: "",
+      montant: 0,
+      Taxe: false,
+      montantavecTaxe: 0,
+      description: "",
+      quantite: 1,
+    },
+  ];
+
   const initialStateDateCommande = {
     dateLivraison: "",
     deteDaFacture: "",
     dateDecheance: "",
   };
 
+  const [formListOfLigneCommande, setFormListOfLigneCommande] = useState(
+    initialStateligneDeCommande
+  );
   const [formFour, setFormFour] = useState(initialStateFour);
   const [formValues, setFormValues] = useState(initialStateFour);
   const [formCommande, setFormCommande] = useState(initialStateDateCommande);
+    
   const handleChangeFour = async (e) => {
     const { name, value } = e.target;
     setFormFour({ ...formFour, [name]: value });
   };
+
+  const itemsPrice = formListOfLigneCommande.reduce(
+    (a, c) => a + c.quantite * c.prix,
+    0
+  );
+  
+  const taxeTotal =  formListOfLigneCommande.map(item => item.Taxe).
+  reduce(
+    (a, c) => a + c ,
+    0
+  );
+console.log(formListOfLigneCommande)
+
 
   return (
     <div className=" ">
@@ -81,10 +122,13 @@ export default function Index() {
                 </div>
                 <div className="  px-10">
                   <div className="grid  grid-cols-1  relative  w-full   ">
-                    //on va mettre ici le tableau qui contient pulsieur ligne de
-                    commande
+                    <TableauDeCommande
+                      formListOfLigneCommande={formListOfLigneCommande}
+                      setFormListOfLigneCommande={setFormListOfLigneCommande}
+                    ></TableauDeCommande>
                   </div>
                 </div>
+           
               </div>
             </div>
           </div>
