@@ -2,59 +2,14 @@ import React, { useEffect, useState } from "react";
 import PopoverClient from "../ui/PopoverClient";
 import logo from "../../assets/down-arrow.png";
 
-export default function Client({ formValues, setFormValues }) {
-  const [toggleShowOfClient, setToggleShowOfClient] = useState(false);
+export default function Client({ formValues, setFormValues,handleChangeClient}) {
+  
   const [selectedClient, setSelected] = useState("");
   const [showDetailOfAdresse, setShowDetailOfAdresse] = useState(false);
   const [openListClient, setOpenList] = useState(false);
-  const { nom, email, telephone, adresse, Ville, codePostal } = formValues;
+ 
 
-  const changeNom = (e) => {
-    setFormValues({
-      ...formValues,
-      nom: e.target.value,
-    });
-
-    setToggleShowOfClient(true);
-  };
-  const changeEmail = (e) => {
-    e.target.name = "email";
-
-    setFormValues({
-      ...formValues,
-      email: e.target.value,
-    });
-  };
-  const changeTelephone = (e) => {
-    setFormValues({
-      ...formValues,
-      telephone: e.target.value,
-    });
-  };
-
-  const changeAdresseRue = (e) => {
-    setFormValues({
-      ...formValues,
-      adresseRue: e.target.value,
-    });
-
-    changeCodePostal(e);
-    changeVille(e);
-  };
-
-  const changeCodePostal = (e) => {
-    setFormValues({
-      ...formValues,
-      codePostal: e.target.value,
-    });
-  };
-
-  const changeVille = (e) => {
-    setFormValues({
-      ...formValues,
-      Ville: e.target.value,
-    });
-  };
+  
 
   return (
     <div className="w-full lg:pt-9  md:mb-4">
@@ -70,7 +25,7 @@ export default function Client({ formValues, setFormValues }) {
 
           <PopoverClient
             setSelected={setSelected}
-            changeNom={changeNom}
+            handleChangeClient={handleChangeClient}
             setOpenList={setOpenList}
             openListClient={openListClient}
             selectedClient={selectedClient}
@@ -89,7 +44,7 @@ export default function Client({ formValues, setFormValues }) {
             name="email"
             onChange={(e) => changeEmail(e)}
             placeholder="ex: proxym@gmail.com"
-            value={email}
+            value={formValues.email}
           ></input>
         </div>
         <div className=" md:-mt-1 md:flex md:items-center  ">
@@ -102,7 +57,7 @@ export default function Client({ formValues, setFormValues }) {
             name="adresseRue"
             placeholder="ex: Rue louis marlouf"
             onChange={(e) => changeAdresseRue(e)}
-            value={adresse}
+            value={formValues.adresse}
           ></input>
         </div>
         {showDetailOfAdresse && (
@@ -114,7 +69,7 @@ export default function Client({ formValues, setFormValues }) {
                 name="CodePostal"
                 placeholder="ex: 4045"
                 onChange={(e) => changeCodePostal(e)}
-                value={codePostal}
+                value={formValues.codePostal}
               ></input>
             </div>
             <div className=" md:-mt-1  md:flex md:items-center  ">
@@ -124,7 +79,7 @@ export default function Client({ formValues, setFormValues }) {
                 name="Ville"
                 placeholder="ex: Sousse"
                 onChange={(e) => changeVille(e)}
-                value={Ville}
+                value={formValues.Ville}
               ></input>
             </div>
           </>
@@ -139,7 +94,7 @@ export default function Client({ formValues, setFormValues }) {
             name="Telephone"
             placeholder="ex : 207512650"
             onChange={(e) => changeTelephone(e)}
-            value={telephone}
+            value={formValues.telephone}
           ></input>
         </div>
       </form>

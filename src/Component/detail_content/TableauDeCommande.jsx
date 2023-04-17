@@ -58,8 +58,24 @@ const TableauDeCommande = ({
         <tbody>
           {formListOfLigneCommande.map((val, index) => {
             return (
-              //on va mettre ici la liste des commandes 
-              <h1>la liste  des commandes </h1>
+              <React.Fragment key={index}>
+                <CommandeList
+              
+                  setCategories={setCategories}
+                  formListOfLigneCommande={formListOfLigneCommande}
+                  setFormListOfLigneCommande={setFormListOfLigneCommande}
+                  index={index}
+                  setTotal={setTotal}
+                  val={val}
+                  prix={prix}
+                  description={description}
+                  categories={categories}
+                  setPrix={setPrix}
+                  setDescription={setDescriptions}
+                  selectedProduit={selectedProduit}
+                  setSelected={setSelected}
+                ></CommandeList>
+              </React.Fragment>
             );
           })}
           <tr className=" lg:grid-flow-col border-b-default border-dashed border-bg_input  ">

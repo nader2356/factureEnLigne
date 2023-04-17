@@ -1,22 +1,15 @@
 import React, { useState } from "react";
-const Fournisseur = ({formFour,setFormFour,handleChangeFour}) => {
-  const [showDetailOfAdresse, setShowDetailOfAdresse] = useState(false);
-  const toggleShow = () => setShowDetailOfAdresse((prev) => !prev);
-
-
-  const { nomSociete,emailSociete,telephoneSociete,adresseRueSociete,villeSociete,codePostalSociete} = formFour; 
-
-  const handleChangeAdresse = (e) => {
-    setFormFour({
-      ...formFour,
-      adresseRueSociete: e.target.value,
-    });
-    toggleShow();
-  };
-  
+const Fournisseur = ({
+  formFour,
+  setFormFour,
+  handleChangeFour,
+  showDetailOfAdresse,
+}) => {
   return (
     <div className="w-full lg:pt-9 md:mb-4    ">
-      <h3 className="text-1.75rem font-medium text-blackj lg:-ml-96 lg:mr-16 md:mb-4">De</h3>
+      <h3 className="text-1.75rem font-medium text-blackj lg:-ml-96 lg:mr-16 md:mb-4">
+        De
+      </h3>
 
       <form className=" ">
         <div className="lg:mt-4 md:mt-8 md:flex md:items-center ">
@@ -29,7 +22,7 @@ const Fournisseur = ({formFour,setFormFour,handleChangeFour}) => {
             name="nomSociete"
             onChange={handleChangeFour}
             placeholder="ex : Proxym"
-            value={nomSociete}
+            value={formFour.nomSociete}
           ></input>
         </div>
 
@@ -43,7 +36,7 @@ const Fournisseur = ({formFour,setFormFour,handleChangeFour}) => {
             name="emailSociete"
             onChange={handleChangeFour}
             placeholder="ex: proxym@gmail.com"
-            value={emailSociete}
+            value={formFour.emailSociete}
           ></input>
         </div>
         <div className=" md:-mt-1 md:flex md:items-center  ">
@@ -52,11 +45,11 @@ const Fournisseur = ({formFour,setFormFour,handleChangeFour}) => {
           </span>
           <input
             type="text"
-            onChange={(e) => handleChangeAdresse(e)}
+            onChange={handleChangeFour}
             className="border-solid border-bg_input w-full  md:mb-4  py-2 px-4 bg-white border-default "
             name="adresseRueSociete"
             placeholder="ex: Rue louis marlouf"
-            value={adresseRueSociete}
+            value={formFour.adresseRueSociete}
           ></input>
         </div>
         {showDetailOfAdresse && (
@@ -68,7 +61,7 @@ const Fournisseur = ({formFour,setFormFour,handleChangeFour}) => {
                 className="border-solid border-bg_input lg:ml-40 w-full   md:mb-4  py-2 px-4 bg-white border-default "
                 name="codePostalsociete"
                 placeholder="ex: 4045"
-                value={codePostalSociete}
+                value={formFour.codePostalSociete}
               ></input>
             </div>
             <div className=" md:-mt-1  md:flex md:items-center  ">
@@ -78,7 +71,7 @@ const Fournisseur = ({formFour,setFormFour,handleChangeFour}) => {
                 className="border-solid border-bg_input w-full   md:mb-4  lg:ml-40 py-2 px-4 bg-white border-default "
                 name="villesociete"
                 placeholder="ex: Sousse"
-                value={villeSociete}
+                value={formFour.villeSociete}
               ></input>
             </div>
           </>
@@ -93,7 +86,7 @@ const Fournisseur = ({formFour,setFormFour,handleChangeFour}) => {
             name="telephoneSociete"
             onChange={handleChangeFour}
             placeholder="ex : 207512650"
-            value={telephoneSociete}
+            value={formFour.telephoneSociete}
           ></input>
         </div>
       </form>

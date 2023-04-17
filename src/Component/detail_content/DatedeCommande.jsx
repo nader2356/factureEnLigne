@@ -1,16 +1,8 @@
 import React from "react";
 
-const DatedeCommande= ({formCommande,setFormCommande}) => {
+const DatedeCommande= ({formCommande,setFormCommande,handleChangeDatedeCommande}) => {
 
- const { dateDeLivraion,dateDéchéance} = formCommande
-
-  const ondateDeLivraionChange=(e)=>{
-    setUser({...user,dateDeLivraion:e.target.value});
-  }
-  
-  const ondateDéchéanceChange=(e)=>{
-    setUser({...user,dateDeLivraion:e.target.value});
-  }
+ 
 
     return (
         <div className="w-full  md:mb-4    ">
@@ -23,9 +15,9 @@ const DatedeCommande= ({formCommande,setFormCommande}) => {
               type="date"
               className="border-solid border-bg_input w-full   py-2 px-4 md:mb-4  bg-white border-default   "
               name="dateDeLivraion"
-              onChange={ondateDeLivraionChange}
+              onChange={handleChangeDatedeCommande}
               placeholder=" ex 10/10/2020"
-              value={dateDeLivraion}
+              value={formCommande.dateDeLivraion}
             ></input>
           </div>
           <div className=" md:-mt-1 md:flex md:items-center  ">
@@ -36,9 +28,9 @@ const DatedeCommande= ({formCommande,setFormCommande}) => {
               type="date"
               className="border-solid border-bg_input w-full    md:mb-4 py-2 px-4 bg-white border-default "
               name="dateDéchéance"
-              onChange={ondateDéchéanceChange}
+              onChange={ handleChangeDatedeCommande}
               placeholder="ex 10/10/2020"
-              value={dateDéchéance}
+              value={formCommande.dateDéchéance}
             ></input>
           </div>
        

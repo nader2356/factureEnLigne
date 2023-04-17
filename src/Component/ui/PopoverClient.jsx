@@ -8,7 +8,7 @@ const PopoverClient = ({
   selectedClient,
   setFormValues,
   setOpenList,
-  changeNom,
+  handleChangeClient,
   openListClient,
 }) => {
   const [clients, setClient] = useState([]);
@@ -70,7 +70,7 @@ const PopoverClient = ({
             <input
               type="text"
               value={nom}
-              onChange={changeNom}
+              onChange={handleChangeClient}
               className="border-solid border-bg_input w-full lg:pr-36 md:pr-80   py-2 px-4 md:mb-4  bg-white border-default   "
               placeholder="ex : Proxym"
             ></input>

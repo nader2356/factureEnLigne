@@ -4,6 +4,7 @@ import Client from "../Component/detail_content/Client";
 import DatedeCommande from "../Component/detail_content/DatedeCommande";
 import TableauDeCommande from "../Component/detail_content/TableauDeCommande";
 import Footer from "../Component/detail_content/Footer";
+import CartContext from "../Context/Cart/CartContext";
 
 export default function Index() {
   const initialStateClient = {
@@ -16,15 +17,6 @@ export default function Index() {
   };
 
   const initialStateFour = {
-    nom: "",
-    email: "",
-    telephone: "",
-    adresse: "",
-    Ville: "",
-    codePostal: "",
-  };
-
-  const initialState = {
     nom: "",
     email: "",
     telephone: "",
@@ -51,31 +43,44 @@ export default function Index() {
     deteDaFacture: "",
     dateDecheance: "",
   };
-
+  const [showDetailOfAdresse, setShowDetailOfAdresse] = useState(false);
+  const toggleShow = () => setShowDetailOfAdresse((prev) => !prev);
   const [formListOfLigneCommande, setFormListOfLigneCommande] = useState(
     initialStateligneDeCommande
   );
   const [formFour, setFormFour] = useState(initialStateFour);
-  const [formValues, setFormValues] = useState(initialStateFour);
+  const [formValues, setFormValues] = useState(initialStateClient);
   const [formCommande, setFormCommande] = useState(initialStateDateCommande);
-    
+
   const handleChangeFour = async (e) => {
     const { name, value } = e.target;
+    if ((e.target.name = "adresse")) {
+      toggleShow();
+    }
     setFormFour({ ...formFour, [name]: value });
+  };
+
+  const handleChangeClient = async (e) => {
+    const { name, value } = e.target;
+
+    setFormValues({ ...formValues, [name]: value });
+  };
+
+  const handleChangeDatedeCommande = async (e) => {
+    const { name, value } = e.target;
+
+    setFormCommande({ ...formCommande, [name]: value });
   };
 
   const itemsPrice = formListOfLigneCommande.reduce(
     (a, c) => a + c.quantite * c.prix,
     0
   );
-  
-  const taxeTotal =  formListOfLigneCommande.map(item => item.Taxe).
-  reduce(
-    (a, c) => a + c ,
-    0
-  );
-console.log(formListOfLigneCommande)
 
+  const taxeTotal = formListOfLigneCommande
+    .map((item) => item.Taxe)
+    .reduce((a, c) => a + c, 0);
+  console.log(formListOfLigneCommande);
 
   return (
     <div className=" ">
@@ -102,11 +107,13 @@ console.log(formListOfLigneCommande)
                     <Fournisseur
                       formFour={formFour}
                       setFormFour={setFormFour}
+                      showDetailOfAdresse={showDetailOfAdresse}
                       handleChangeFour={handleChangeFour}
                     ></Fournisseur>
                     <Client
                       formValues={formValues}
                       setFormValues={setFormValues}
+                      handleChangeClient={handleChangeClient}
                     ></Client>
                   </div>
                 </div>
@@ -117,6 +124,7 @@ console.log(formListOfLigneCommande)
                     <DatedeCommande
                       formCommande={formCommande}
                       setFormCommande={setFormCommande}
+                      handleChangeDatedeCommande={handleChangeDatedeCommande}
                     ></DatedeCommande>
                   </div>
                 </div>
@@ -128,7 +136,6 @@ console.log(formListOfLigneCommande)
                     ></TableauDeCommande>
                   </div>
                 </div>
-           
               </div>
             </div>
           </div>
