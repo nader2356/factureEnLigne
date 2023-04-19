@@ -1,36 +1,35 @@
 import React from "react";
-const Footer = ({ montantTotalavecTaxe, taxeTotal, montantTotal }) => {
-  
+const Footer = ({ total , montantTotal }) => {
+
   return (
-    <tr >
-    <td className="pt-10 pb-10 text-right -mr-52">
-      <div className="w-4 -mb-4 flex ">
-        <div className="min-w-130px">Sous-total</div>
-        <div className="text-right  min-w-130px">
-        <span>{parseFloat(montantTotal)} $</span>
+    <div className="relative w-full text-right lg:ml-96">
+      <div className="pt-10 pb-10 ml-72">
+        <div className="w-4 -mb-4 flex ">
+          <div className="min-w-130px">Sous-total</div>
+          <div className="text-right  min-w-130px">
+            <span>{parseFloat(montantTotal)} $</span>
+          </div>
+        </div>
+        <div className="w-4 mt-5 -mb-4 flex ">
+          <div className="min-w-130px">Sous-total</div>
+          <div className="text-right  min-w-130px">
+            <span>{parseFloat(total.taxe)} $</span>
+          </div>
+        </div>
+        <div className="w-4 mt-5 -mb-4 flex ">
+          <div className="min-w-130px">Sous-total</div>
+          <div className="text-right  min-w-130px">
+            <span>{parseFloat(total.montantTotalavecTaxe)} $</span>
+          </div>
+        </div>
+        <div className="w-4 mt-5 flex ">
+          <div className="min-w-130px">Sous-total</div>
+          <div className="text-right  min-w-130px">
+            <span>{parseFloat(total.montantTotalavecTaxe)} $</span>
+          </div>
         </div>
       </div>
-      <div className="w-4 mt-5 -mb-4 flex ">
-        <div className="min-w-130px">Sous-total</div>
-        <div className="text-right  min-w-130px">
-        <span>0 $</span>
-        </div>
-      </div>
-      <div className="w-4 mt-5 -mb-4 flex ">
-        <div className="min-w-130px">Sous-total</div>
-        <div className="text-right  min-w-130px">
-          <span>0 $</span>
-        </div>
-      </div>
-      <div className="w-4 mt-5 flex ">
-        <div className="min-w-130px">Sous-total</div>
-        <div className="text-right  min-w-130px">
-          <span>0 $</span>
-        </div>
-      </div>
-    </td>
-  </tr>
-  
+    </div>
   );
 };
 

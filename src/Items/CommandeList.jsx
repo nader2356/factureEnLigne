@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import Plus from "../assets/add-circle-outline.svg";
 import Minus from "../assets/remove-circle-outline.svg";
-import CartContext from "../Context/Cart/CartContext";
+
+import PopoverProduits from "../Component/ui/PopoverProduit";
 const CommandeList = ({
   formListOfLigneCommande,
   setFormListOfLigneCommande,
@@ -15,8 +16,6 @@ const CommandeList = ({
   setPrix,
   description,
   prix,
-  montantTotal,
-  montantTotalavecTaxe,
   categories,
 }) => {
   const [toggleShowOfProduct, setToggleShowOfProduct] = useState(false);
@@ -24,12 +23,16 @@ const CommandeList = ({
     new Array(formListOfLigneCommande.length).fill(false)
   );
 
-  const { increase, decrease } = useContext(CartContext);
   const onHandle = (e, i) => {
     const { name } = e.target;
     let newForm = [...formListOfLigneCommande];
-    newForm[i][name] = e.target.value;
+
     setFormListOfLigneCommande(newForm);
+    if (selectedProduit != "") {
+      newForm[i][name] = selectedProduit;
+    } else {
+      newForm[i][name] = e.target.value;
+    }
     setToggleShowOfProduct(true);
   };
 
@@ -37,21 +40,39 @@ const CommandeList = ({
     const { name } = e.target;
     let newForm = [...formListOfLigneCommande];
     setFormListOfLigneCommande(newForm);
-    newForm[i][name] = e.target.value;
-    setToggleShowOfProduct(true);
+    if (selectedProduit != "") {
+      newForm[i][name] = categories;
+    } else {
+      newForm[i][name] = e.target.value;
+    }
+
+    setToggleShowOfProduct(false);
   };
 
   const onHandlequantite = (e, i) => {
     const { name } = e.target;
     let newForm = [...formListOfLigneCommande];
+
     newForm[i][name] = e.target.value;
     console.log(e.target.value);
     setFormListOfLigneCommande(newForm);
+
+    if (newForm[i].Taxe === true) {
+      newForm[i].taxeValeur =
+        (parseInt(e.target.value) * newForm[i].prix * 20) / 100;
+      newForm[i].montantavecTaxe =
+        newForm[i].taxeValeur + parseInt(e.target.value) * newForm[i].prix;
+    } else {
+      newForm[i].taxeValeur = 0;
+      newForm[i].montantavecTaxe =
+        newForm[i].taxeValeur + parseInt(e.target.value) * newForm[i].prix;
+    }
   };
 
   const onHandleMontant = (e, i) => {
     const { name } = e.target;
     let newForm = [...formListOfLigneCommande];
+    console.log(newForm);
     newForm[i][name] = e.target.value;
     setFormListOfLigneCommande(newForm);
   };
@@ -61,7 +82,11 @@ const CommandeList = ({
     const { name } = e.target;
     let newForm = [...formListOfLigneCommande];
     setFormListOfLigneCommande(newForm);
-    newForm[i][name] = e.target.value;
+    if (selectedProduit != "") {
+      newForm[i][name] = description;
+    } else {
+      newForm[i][name] = parseFloat(e.target.value);
+    }
   };
 
   const onHandleChangeTaxe = (e, i) => {
@@ -80,10 +105,13 @@ const CommandeList = ({
     let newForm = [...formListOfLigneCommande];
     newForm[i][name] = updatedCheckedState[i];
     if (updatedCheckedState[i] === true) {
-      formListOfLigneCommande[i].montantavecTaxe =
-        (formListOfLigneCommande[i].montant * 20) / 100;
+      newForm[i].taxeValeur = (newForm[i].montant * 20) / 100;
+      newForm[i].montantavecTaxe =
+        newForm[i].taxeValeur + parseInt(newForm[i].montant);
     } else {
-      formListOfLigneCommande[i].montantavecTaxe = 0;
+      newForm[i].taxeValeur = 0;
+      newForm[i].montantavecTaxe =
+        newForm[i].taxeValeur + parseInt(newForm[i].montant);
     }
     console.log(formListOfLigneCommande[i].montantavecTaxe);
     setFormListOfLigneCommande(newForm);
@@ -94,7 +122,22 @@ const CommandeList = ({
     const { name } = e.target;
     let newForm = [...formListOfLigneCommande];
     setFormListOfLigneCommande(newForm);
-    newForm[i][name] = e.target.value;
+    if (selectedProduit != "") {
+      newForm[i][name] = prix;
+    } else {
+      if (newForm[i].Taxe === true) {
+        newForm[i].taxeValeur = (newForm[i].montant * 20) / 100;
+        newForm[i].montantavecTaxe =
+          newForm[i].taxeValeur + parseInt(newForm[i].montant);
+      } else {
+        newForm[i].taxeValeur = 0;
+        newForm[i].montantavecTaxe =
+          newForm[i].taxeValeur + parseInt(newForm[i].montant);
+      }
+      newForm[i][name] = parseFloat(e.target.value);
+    }
+
+    setToggleShowOfProduct(false);
   };
 
   return (
@@ -125,13 +168,23 @@ const CommandeList = ({
           <span>
             <input
               type="text"
-              className="border-solid border-bg_input w-full  md:mb-4 pb-2 py-2 ml-2 mt-1 px-4 bg-white border-default "
+              className="border-solid border-bg_input w-60  md:mb-4 pb-2 py-2   px-4 bg-white border-default "
               name="nom"
               placeholder="ex: chaise"
               onChange={(e) => onHandle(e, index)}
               value={val.nom}
             ></input>
           </span>
+          {toggleShowOfProduct && (
+            <PopoverProduits
+              selectedProduit={selectedProduit}
+              setSelected={setSelected}
+              setPrix={setPrix}
+              setDescription={setDescription}
+              setCategories={setCategories}
+              setToggleShowOfProduct={setToggleShowOfProduct}
+            ></PopoverProduits>
+          )}
 
           <span>
             <textarea
@@ -167,23 +220,23 @@ const CommandeList = ({
             ></input>
           </span>
         </td>
-        <td className=" pb-32  border-none flex pt-7 pl-5 text-left w-full ">
-        <input
+        <td className=" pb-32  border-none flex pt-6 pl-5 text-left w-full ">
+          <input
             type="number"
-            onClick={(e) => onHandlequantite(e, index)}
+            onChange={(e) => onHandlequantite(e, index)}
             name="quantite"
             className="border-solid border-bg_input w-28   md:mb-4  py-2 text-black  bg-white border-default text-right "
-            value={val.quantite}
+            value={parseFloat(val.quantite)}
             placeholder="ex: 20,20"
-            ></input>
+          ></input>
         </td>
         <td className="  pb-28 border-none pl-9   w-full ">
           <input
             type="number"
-            onClick={(e) => onHandleMontant(e, index)}
+            onChange={(e) => onHandleMontant(e, index)}
             name="montant"
             className="border-solid border-bg_input w-28   md:mb-4  py-2 text-black  bg-white border-default text-right "
-            value={(val.montant = parseInt(val.quantite * val.prix))}
+            value={(val.montant = parseInt(val.quantite) * parseInt(val.prix))}
             placeholder="ex: 20,20"
           ></input>
         </td>

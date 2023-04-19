@@ -10,12 +10,8 @@ const TableauDeCommande = ({
   const [categories, setCategories] = useState("");
   const [description, setDescriptions] = useState("");
   const [prix, setPrix] = useState(0);
-  const [total, setTotal] = useState(0);
 
-  const itemsPrice = formListOfLigneCommande.reduce(
-    (a, c) => a + c.quantite * c.prix,
-    0
-  );
+
   
 
 
@@ -33,6 +29,7 @@ const TableauDeCommande = ({
             quantite: 1,
             prix: 0,
             Taxe: false ,
+            taxeValue: 0 ,
             montantavecTaxe : 0
           },
         ]);
@@ -65,7 +62,7 @@ const TableauDeCommande = ({
                   formListOfLigneCommande={formListOfLigneCommande}
                   setFormListOfLigneCommande={setFormListOfLigneCommande}
                   index={index}
-                  setTotal={setTotal}
+                 
                   val={val}
                   prix={prix}
                   description={description}

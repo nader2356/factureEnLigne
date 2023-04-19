@@ -4,7 +4,6 @@ import Client from "../Component/detail_content/Client";
 import DatedeCommande from "../Component/detail_content/DatedeCommande";
 import TableauDeCommande from "../Component/detail_content/TableauDeCommande";
 import Footer from "../Component/detail_content/Footer";
-import CartContext from "../Context/Cart/CartContext";
 
 export default function Index() {
   const initialStateClient = {
@@ -32,6 +31,7 @@ export default function Index() {
       categorie: "",
       montant: 0,
       Taxe: false,
+      taxeValeur: 0,
       montantavecTaxe: 0,
       description: "",
       quantite: 1,
@@ -43,32 +43,31 @@ export default function Index() {
     deteDaFacture: "",
     dateDecheance: "",
   };
-  const [showDetailOfAdresse, setShowDetailOfAdresse] = useState(false);
-  const toggleShow = () => setShowDetailOfAdresse((prev) => !prev);
+  const initialStateTotal = {
+    taxe: 0,
+    montantTotalavecTaxe: 0,
+  };
+
   const [formListOfLigneCommande, setFormListOfLigneCommande] = useState(
     initialStateligneDeCommande
   );
+  const [total, setTotal] = useState(initialStateTotal);
   const [formFour, setFormFour] = useState(initialStateFour);
   const [formValues, setFormValues] = useState(initialStateClient);
   const [formCommande, setFormCommande] = useState(initialStateDateCommande);
 
   const handleChangeFour = async (e) => {
     const { name, value } = e.target;
-    if ((e.target.name = "adresse")) {
-      toggleShow();
-    }
     setFormFour({ ...formFour, [name]: value });
   };
 
   const handleChangeClient = async (e) => {
     const { name, value } = e.target;
-
     setFormValues({ ...formValues, [name]: value });
   };
 
   const handleChangeDatedeCommande = async (e) => {
     const { name, value } = e.target;
-
     setFormCommande({ ...formCommande, [name]: value });
   };
 
@@ -77,11 +76,23 @@ export default function Index() {
     0
   );
 
-  const taxeTotal = formListOfLigneCommande
-    .map((item) => item.Taxe)
-    .reduce((a, c) => a + c, 0);
-  console.log(formListOfLigneCommande);
+  total.montantTotalavecTaxe = formListOfLigneCommande.reduce(
+    (cartTotal, cartItem) => {
+      return (cartTotal += cartItem.montantavecTaxe);
+    },
+    0
+  );
 
+  total.taxe = formListOfLigneCommande.reduce(
+    (cartTotal, cartItem) => {
+      return (cartTotal += cartItem.taxeValeur);
+    },
+    0
+  );
+
+  console.log(total.montantTotalavecTaxe);
+
+  console.log(formListOfLigneCommande);
   return (
     <div className=" ">
       <div className=" container  w-full  md:mx-auto lg:mx-auto sm:mx-auto h-screen md:px-4  lg:px-4   sm:px-4  ">
@@ -97,7 +108,7 @@ export default function Index() {
                       <input
                         type="text"
                         value="Facture 001"
-                        className="lg:border-default pl-4 mt-4  lg:border-background_button py-4 md:text-1.5rem lg:text-2rem   md:border-none  lg:border-solid "
+                        className="lg:border-default pl-4 mt-4 -ml-96  lg:border-background_button py-4 md:text-1.5rem lg:text-2rem   md:border-none  lg:border-solid "
                       ></input>
                     </h2>
                   </div>
@@ -107,7 +118,6 @@ export default function Index() {
                     <Fournisseur
                       formFour={formFour}
                       setFormFour={setFormFour}
-                      showDetailOfAdresse={showDetailOfAdresse}
                       handleChangeFour={handleChangeFour}
                     ></Fournisseur>
                     <Client
@@ -136,6 +146,7 @@ export default function Index() {
                     ></TableauDeCommande>
                   </div>
                 </div>
+                <Footer montantTotal={itemsPrice} total={total}></Footer>
               </div>
             </div>
           </div>

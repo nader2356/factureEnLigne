@@ -7,12 +7,10 @@ const PopoverClient = ({
   formValues,
   selectedClient,
   setFormValues,
-  setOpenList,
-  handleChangeClient,
-  openListClient,
+  setToggleShowOfClient,
 }) => {
   const [clients, setClient] = useState([]);
-  const { nom } = formValues;
+
   useEffect(() => {
     const fetchClient = async () => {
       const config = {
@@ -58,67 +56,57 @@ const PopoverClient = ({
       formValues.codePostal = datas.codePostal;
       formValues.Ville = datas.Ville;
       formValues.adresse = datas.adresse;
-      
     });
   };
 
   return (
     <>
-      <div className="flex-none">
-        <div className="flex">
-          <label className="relative block">
-            <input
-              type="text"
-              value={nom}
-              onChange={handleChangeClient}
-              className="border-solid border-bg_input w-full lg:pr-36 md:pr-80   py-2 px-4 md:mb-4  bg-white border-default   "
-              placeholder="ex : Proxym"
-            ></input>
-
-            <span
-              className="absolute inset-y-0 right-0 flex items-center pr-3 pb-4"
-              onClick={() => setOpenList(!openListClient)}
-            >
+      <div className=" w-80 text-sm font-light absolute md:top-20 lg:top-36 ml-32  z-10 duration-150 ease-in-out text-gray-500 bg-white rounded-lg border-default border-gray shadow-sm opacity-100 transition-opacity  dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
+        <div className="flex justify-end items-right ">
+          <div>
+            <button type="button" className="p-3  text-black min-w-2rem">
               <svg
+                aria-hidden="true"
+                focusable="false"
+                data-prefix="fas"
+                data-icon="times"
+                className="w-3 "
+                role="img"
                 xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
+                viewBox="0 0 352 512"
               >
                 <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                />
+                  fill="currentColor"
+                  d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                ></path>
               </svg>
-            </span>
-          </label>
+            </button>
+          </div>
         </div>
-        <ul
-          className = {`bg-panel  w-full overflow-y-auto ${openListClient ? "max-h-60" : "max-h-0"
-        } `}
-        >
-          <option className="pl-5 pt-5 mb-5 text-left">Selectionner un client </option>
-          {clients.map((item) => (
-            <li
+
+        <option className="pl-5  mb-5 text-left">
+          Selectionner un client{" "}
+        </option>
+        {clients.map((item) => (
+          <>
+            <p
               key={item.id}
               value={item.id}
-              className="pl-8 pt-5 pb-5 text-sm text-left hover:bg-panel"
+              className="pl-8 pt-5  pb-5 text-sm text-left hover:bg-panel"
               onClick={() => {
                 setSelected(item?.nom + " " + item?.prenom);
                 console.log(selectedClient);
                 if (selectedClient != "") {
-                  setOpenList(false);
+                  setToggleShowOfClient(false);
                   fetchClientById(item?.id);
                 }
               }}
             >
               {item?.nom + "     " + item?.prenom}
-            </li>
-          ))}
-        </ul>
+            </p>
+            <hr className="my-4  w-full border-t border-gray" />
+          </>
+        ))}
       </div>
     </>
   );

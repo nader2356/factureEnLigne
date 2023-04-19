@@ -9,6 +9,7 @@ export const initialStateligneDeCommande =
       Taxe: false,
       montantavecTaxe: 0,
       description: "",
+      quantite : 0 
       
     }
   

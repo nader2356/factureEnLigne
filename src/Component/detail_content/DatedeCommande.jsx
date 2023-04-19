@@ -14,10 +14,10 @@ const DatedeCommande= ({formCommande,setFormCommande,handleChangeDatedeCommande}
             <input
               type="date"
               className="border-solid border-bg_input w-full   py-2 px-4 md:mb-4  bg-white border-default   "
-              name="dateDeLivraion"
+              name="dateLivraion"
               onChange={handleChangeDatedeCommande}
               placeholder=" ex 10/10/2020"
-              value={formCommande.dateDeLivraion}
+              value={formCommande.dateLivraion}
             ></input>
           </div>
           <div className=" md:-mt-1 md:flex md:items-center  ">
@@ -27,10 +27,10 @@ const DatedeCommande= ({formCommande,setFormCommande,handleChangeDatedeCommande}
             <input
               type="date"
               className="border-solid border-bg_input w-full    md:mb-4 py-2 px-4 bg-white border-default "
-              name="dateDéchéance"
+              name="dateDecheance"
               onChange={ handleChangeDatedeCommande}
               placeholder="ex 10/10/2020"
-              value={formCommande.dateDéchéance}
+              value={formCommande.dateDecheance}
             ></input>
           </div>
        
