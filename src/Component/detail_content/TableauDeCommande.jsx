@@ -18,7 +18,7 @@ const TableauDeCommande = ({
   setligne_commande,
   ligne_commande,
 }) => {
-  const EducationDetailsListAddField = (actionType) => (event) => {
+  const CommandeDetailsListAddField = (actionType) => (event) => {
     event.preventDefault();
 
     let errorMsg = formListOfLigneCommande.map((education, key) => {
@@ -179,7 +179,7 @@ const TableauDeCommande = ({
             <td className="pt-2 pb-2 border-none pl-6 ">
               <button
                 className="p-3 bg-ffff text-rr rounded-large min-w-2rem   border-solid border-default border-background_button"
-                onClick={EducationDetailsListAddField("add")}
+                onClick={CommandeDetailsListAddField("add")}
               >
                 <svg
                   aria-hidden="true"
