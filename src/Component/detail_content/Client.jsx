@@ -6,6 +6,7 @@ export default function Client({
   formValues,
   setFormValues,
   handleChangeClient,
+  setClientId
 }) {
   const [selectedClient, setSelected] = useState("");
   const [showDetailOfAdresse, setShowDetailOfAdresse] = useState(false);
@@ -63,6 +64,7 @@ export default function Client({
               selectedClient={selectedClient}
               setToggleShowOfClient={setToggleShowOfClient}
               formValues={formValues}
+              setClientId={setClientId}
               setFormValues={setFormValues}
             ></PopoverClient>
           )}

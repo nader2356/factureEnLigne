@@ -1,25 +1,113 @@
 import React, { useEffect, useState } from "react";
 import CommandeList from "../../Items/CommandeList";
-import Footer from "./Footer";
+
+import { API, Token } from "../../util/constante";
+import axios from "axios";
 
 const TableauDeCommande = ({
   formListOfLigneCommande,
   setFormListOfLigneCommande,
+  categories,
+  setPrix,
+  prix,
+  selectedProduit,
+  setSelected,
+  description,
+  setCategories,
+  setDescriptions,
+  setligne_commande,
+  ligne_commande,
 }) => {
-  const [selectedProduit, setSelected] = useState("");
-  const [categories, setCategories] = useState("");
-  const [description, setDescriptions] = useState("");
-  const [prix, setPrix] = useState(0);
-
-
-  
-
-
   const EducationDetailsListAddField = (actionType) => (event) => {
     event.preventDefault();
 
     let errorMsg = formListOfLigneCommande.map((education, key) => {
-     
+      if (
+        formListOfLigneCommande[formListOfLigneCommande.length - 1].nom !==
+          selectedProduit &&
+        formListOfLigneCommande[formListOfLigneCommande.length - 1]
+          .description !== description &&
+        formListOfLigneCommande[formListOfLigneCommande.length - 1].prix !==
+          prix &&
+        formListOfLigneCommande[formListOfLigneCommande.length - 1]
+          .categorie !== categories
+      ) {
+        const options = {
+          method: "POST",
+          url: `${API}/categories`,
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+          data: {
+            data: {
+              Name: formListOfLigneCommande[formListOfLigneCommande.length - 1]
+                .categorie,
+            },
+          },
+        };
+        axios
+          .request(options)
+          .then(function (response) {
+            const options = {
+              method: "POST",
+              url: `${API}/produits`,
+              headers: {
+                Authorization: `Bearer ${Token}`,
+              },
+              data: {
+                data: {
+                  nom: formListOfLigneCommande[
+                    formListOfLigneCommande.length - 1
+                  ].nom,
+                  prix: formListOfLigneCommande[
+                    formListOfLigneCommande.length - 1
+                  ].prix,
+                  description:
+                    formListOfLigneCommande[formListOfLigneCommande.length - 1]
+                      .description,
+                  quantite:
+                    formListOfLigneCommande[formListOfLigneCommande.length - 1]
+                      .quantite,
+                  categories: response.data.data.id,
+                },
+              },
+            };
+            axios
+              .request(options)
+              .then(function (response) {
+                const options = {
+                  method: "POST",
+                  url: `${API}/ligne-commandes`,
+                  headers: {
+                    Authorization: `Bearer ${Token}`,
+                  },
+                  data: {
+                    data: {
+                      quantite:
+                        formListOfLigneCommande[
+                          formListOfLigneCommande.length - 1
+                        ].quantite,
+                      produits: response.data.data.id.toString(),
+                    },
+                  },
+                };
+                axios
+                  .request(options)
+                  .then(function (response) {
+                    let res = response.data.data.id.toString();
+                    ligne_commande.push({ res });
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         setFormListOfLigneCommande([
           ...formListOfLigneCommande,
           {
@@ -28,12 +116,26 @@ const TableauDeCommande = ({
             montant: 0,
             quantite: 1,
             prix: 0,
-            Taxe: false ,
-            taxeValue: 0 ,
-            montantavecTaxe : 0
+            Taxe: false,
+            taxeValeur: 0,
+            montantavecTaxe: 0,
           },
         ]);
-      
+      } else {
+        setFormListOfLigneCommande([
+          ...formListOfLigneCommande,
+          {
+            nom: "",
+            description: "",
+            montant: 0,
+            quantite: 1,
+            prix: 0,
+            Taxe: false,
+            taxeValeur: 0,
+            montantavecTaxe: 0,
+          },
+        ]);
+      }
     });
   };
   return (
@@ -45,7 +147,7 @@ const TableauDeCommande = ({
             <th className=" pt-2 pb-2 pl-2  tracking-wide text-left ">
               ARTICLE
             </th>
-            
+
             <th className="   pr-1 tracking-wide text-right  ">PRIX</th>
             <th className="   pr-1 tracking-wide text-right  ">QTTÉ</th>
             <th className=" pl-16  tracking-wide text-left   ">MONTANT</th>
@@ -57,12 +159,10 @@ const TableauDeCommande = ({
             return (
               <React.Fragment key={index}>
                 <CommandeList
-              
                   setCategories={setCategories}
                   formListOfLigneCommande={formListOfLigneCommande}
                   setFormListOfLigneCommande={setFormListOfLigneCommande}
                   index={index}
-                 
                   val={val}
                   prix={prix}
                   description={description}
@@ -100,7 +200,6 @@ const TableauDeCommande = ({
             </td>
           </tr>
         </tbody>
-     
       </table>
     </div>
   );

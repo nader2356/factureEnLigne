@@ -7,6 +7,7 @@ const PopoverClient = ({
   formValues,
   selectedClient,
   setFormValues,
+  setClientId,
   setToggleShowOfClient,
 }) => {
   const [clients, setClient] = useState([]);
@@ -48,6 +49,7 @@ const PopoverClient = ({
     };
     axios.get(`${API}/clients/${id}`, config).then((response) => {
       let datas = response.data.data.attributes;
+      setClientId(response.data.data.id)
       console.log(datas);
       setFormValues(datas);
       formValues.nom = datas.nom + " " + datas.prenom;

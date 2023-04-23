@@ -53,7 +53,7 @@ const CommandeList = ({
     const { name } = e.target;
     let newForm = [...formListOfLigneCommande];
 
-    newForm[i][name] = e.target.value;
+    newForm[i][name] = parseFloat(e.target.value);
     console.log(e.target.value);
     setFormListOfLigneCommande(newForm);
 
@@ -85,7 +85,7 @@ const CommandeList = ({
     if (selectedProduit != "") {
       newForm[i][name] = description;
     } else {
-      newForm[i][name] = parseFloat(e.target.value);
+      newForm[i][name] = e.target.value;
     }
   };
 
@@ -121,20 +121,23 @@ const CommandeList = ({
     e.target.name = "prix";
     const { name } = e.target;
     let newForm = [...formListOfLigneCommande];
+    newForm[i][name] = parseInt(e.target.value);
+    
     setFormListOfLigneCommande(newForm);
+
     if (selectedProduit != "") {
       newForm[i][name] = prix;
     } else {
       if (newForm[i].Taxe === true) {
-        newForm[i].taxeValeur = (newForm[i].montant * 20) / 100;
+        newForm[i].taxeValeur = (parseInt(e.target.value) * newForm[i].quantite * 20) / 100;
         newForm[i].montantavecTaxe =
-          newForm[i].taxeValeur + parseInt(newForm[i].montant);
+          newForm[i].taxeValeur + parseInt(e.target.value) * newForm[i].quantite;
       } else {
         newForm[i].taxeValeur = 0;
         newForm[i].montantavecTaxe =
-          newForm[i].taxeValeur + parseInt(newForm[i].montant);
+          newForm[i].taxeValeur + parseInt(e.target.value) * newForm[i].quantite;
       }
-      newForm[i][name] = parseFloat(e.target.value);
+     
     }
 
     setToggleShowOfProduct(false);
@@ -168,7 +171,7 @@ const CommandeList = ({
           <span>
             <input
               type="text"
-              className="border-solid border-bg_input w-60  md:mb-4 pb-2 py-2   px-4 bg-white border-default "
+              className="border-solid border-bg_input w-60  md:mb-4 pb-2 py-2 -ml-1   px-4 bg-white border-default "
               name="nom"
               placeholder="ex: chaise"
               onChange={(e) => onHandle(e, index)}
@@ -226,7 +229,7 @@ const CommandeList = ({
             onChange={(e) => onHandlequantite(e, index)}
             name="quantite"
             className="border-solid border-bg_input w-28   md:mb-4  py-2 text-black  bg-white border-default text-right "
-            value={parseFloat(val.quantite)}
+            value={parseInt(val.quantite)}
             placeholder="ex: 20,20"
           ></input>
         </td>

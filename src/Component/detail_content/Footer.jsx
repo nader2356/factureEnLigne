@@ -11,19 +11,19 @@ const Footer = ({ total , montantTotal }) => {
           </div>
         </div>
         <div className="w-4 mt-5 -mb-4 flex ">
-          <div className="min-w-130px">Sous-total</div>
+          <div className="min-w-130px">Taxe(20%)</div>
           <div className="text-right  min-w-130px">
             <span>{parseFloat(total.taxe)} $</span>
           </div>
         </div>
         <div className="w-4 mt-5 -mb-4 flex ">
-          <div className="min-w-130px">Sous-total</div>
+          <div className="min-w-130px">Total</div>
           <div className="text-right  min-w-130px">
             <span>{parseFloat(total.montantTotalavecTaxe)} $</span>
           </div>
         </div>
         <div className="w-4 mt-5 flex ">
-          <div className="min-w-130px">Sous-total</div>
+          <div className="min-w-130px">Solde du</div>
           <div className="text-right  min-w-130px">
             <span>{parseFloat(total.montantTotalavecTaxe)} $</span>
           </div>
