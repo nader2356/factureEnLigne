@@ -53,7 +53,7 @@ export default function Index() {
   const [formListOfLigneCommande, setFormListOfLigneCommande] = useState(
     initialStateligneDeCommande
   );
-
+  const [codeFacture, setCodeFacture] = useState("Facture ");
   const [categories, setCategories] = useState("");
   const [ligne_commande, setligne_commande] = useState([]);
   const [description, setDescriptions] = useState("");
@@ -68,6 +68,14 @@ export default function Index() {
   const handleChangeFour = async (e) => {
     const { name, value } = e.target;
     setFormFour({ ...formFour, [name]: value });
+  };
+
+
+
+  
+  const handleChangeCodeFacture= async (e) => {
+    const { name, value } = e.target;
+    setCodeFacture({ ...codeFacture, [name]: value });
   };
 
   const handleChangeClient = async (e) => {
@@ -96,6 +104,19 @@ export default function Index() {
     return (cartTotal += cartItem.taxeValeur);
   }, 0);
 
+  const downloadPdf = () => {
+    const documentDefinition = getDocumentDefinition(
+      total,
+      itemsPrice,
+      formListOfLigneCommande,
+      formCommande,
+      formFour,
+      formValues
+    );
+    pdfMake.createPdf(documentDefinition).open();
+    //pdfMake.createPdf(docDefinition).open();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -119,6 +140,7 @@ export default function Index() {
               date_facturation: formCommande.deteDaFacture,
               totalsanstaxe: itemsPrice,
               totalTaxe: total.taxe,
+              codeFacture : codeFacture,
               ligne_factures: ligne_commande.map((client) => client).join(","),
             },
           },
@@ -151,8 +173,9 @@ export default function Index() {
                         {" "}
                         <input
                           type="text"
-                          value="Facture 001"
+                          value={codeFacture}
                           className="lg:border-default pl-4 mt-4 -ml-96  lg:border-background_button py-4 md:text-1.5rem lg:text-2rem   md:border-none  lg:border-solid "
+                         onChange={e => handleChangeCodeFacture(e)}
                         ></input>
                       </h2>
                     </div>
@@ -216,9 +239,16 @@ export default function Index() {
                 <button
                   className="inline-flex items-center text-sm font-medium h-15  py-4  rounded-md border border-transparent text-white bg-black  focus:outline-none 
                       focus:ring-2 focus:ring-offset-2   w-48 justify-center "
-                  type="button"
+                  type="button" onClick={() => downloadPdf()}
                 >
                   telecharger une facture
+                </button>
+                <button
+                  className="inline-flex items-center text-sm font-medium h-15  py-4  rounded-md border border-transparent text-white bg-black  focus:outline-none 
+                      focus:ring-2 focus:ring-offset-2   w-48 justify-center "
+                  type="button"
+                >
+                  initialiser une facture
                 </button>
               </div>
             </form>

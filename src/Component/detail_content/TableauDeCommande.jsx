@@ -176,7 +176,7 @@ const TableauDeCommande = ({
             );
           })}
           <tr className=" lg:grid-flow-col border-b-default border-dashed border-bg_input  ">
-            <td className="pt-2 pb-2 border-none pl-6 ">
+            <td className="pt-2 pb-2 border-none pl-4 ">
               <button
                 className="p-3 bg-ffff text-rr rounded-large min-w-2rem   border-solid border-default border-background_button"
                 onClick={CommandeDetailsListAddField("add")}
