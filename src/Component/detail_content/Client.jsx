@@ -6,7 +6,7 @@ export default function Client({
   formValues,
   setFormValues,
   handleChangeClient,
-  setClientId
+  setClientId,
 }) {
   const [selectedClient, setSelected] = useState("");
   const [showDetailOfAdresse, setShowDetailOfAdresse] = useState(false);
@@ -45,29 +45,21 @@ export default function Client({
         Adresse de facturation
       </h3>
 
-      <form className=" lg:ml-12 w-full lg:pr-6">
+      <div className=" lg:ml-12 w-full lg:pr-6">
         <div className="lg:mt-4 md:mt-8 md:flex md:items-center ">
           <span className=" lg:overflow-visible lg:opacity-100 lg:mr-20 md:-mr-8  lg:-mt-4  md:max-w-1/4 md:overflow-hidden md:opacity-0">
             Nom
           </span>
-          <input
-            type="text"
-            className="border-solid border-bg_input w-full   py-2 px-4 md:mb-4  bg-white border-default   "
-            name="nom"
-            onChange={(e) => handleChangeNom(e)}
-            placeholder="ex : Proxym"
-            value={formValues.nom}
-          ></input>
-          {toggleShowOfClient && (
-            <PopoverClient
-              setSelected={setSelected}
-              selectedClient={selectedClient}
-              setToggleShowOfClient={setToggleShowOfClient}
-              formValues={formValues}
-              setClientId={setClientId}
-              setFormValues={setFormValues}
-            ></PopoverClient>
-          )}
+
+          <PopoverClient
+            setSelected={setSelected}
+            selectedClient={selectedClient}
+            setToggleShowOfClient={setToggleShowOfClient}
+            formValues={formValues}
+            toggleShowOfClient={toggleShowOfClient}
+            handleChangeNom={handleChangeNom}
+            setFormValues={setFormValues}
+          ></PopoverClient>
         </div>
 
         <div className=" md:-mt-1 md:flex md:items-center  ">
@@ -78,7 +70,7 @@ export default function Client({
             type="text"
             className="border-solid border-bg_input w-full  lg:pr-10   md:mb-4 py-2 pl-4 bg-white border-default "
             name="email"
-            onChange={(e) =>  handleChangeEmail(e)}
+            onChange={(e) => handleChangeEmail(e)}
             placeholder="ex: proxym@gmail.com"
             value={formValues.email}
           ></input>
@@ -92,7 +84,7 @@ export default function Client({
             className="border-solid border-bg_input w-full   md:mb-4  py-2 px-4 bg-white border-default "
             name="adresse"
             placeholder="ex: Rue louis marlouf"
-            onChange={(e) =>  handleChangeAdresse(e)}
+            onChange={(e) => handleChangeAdresse(e)}
             value={formValues.adresse}
           ></input>
         </div>
@@ -104,7 +96,7 @@ export default function Client({
                 className="border-solid border-bg_input lg:ml-40 w-full   md:mb-4  py-2 px-4 bg-white border-default "
                 name="codePostal"
                 placeholder="ex: 4045"
-                onChange={(handleChangeClient)}
+                onChange={handleChangeClient}
                 value={formValues.codePostal}
               ></input>
             </div>
@@ -133,7 +125,7 @@ export default function Client({
             value={formValues.telephone}
           ></input>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

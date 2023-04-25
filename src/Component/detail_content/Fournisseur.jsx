@@ -16,7 +16,7 @@ const Fournisseur = ({formFour,setFormFour,handleChangeFour}) => {
     <div className="w-full lg:pt-9 md:mb-4    ">
       <h3 className="text-1.75rem font-medium text-blackj lg:-ml-96 lg:mr-16 md:mb-4">De</h3>
 
-      <form className=" ">
+    
         <div className="lg:mt-4 md:mt-8 md:flex md:items-center ">
           <span className=" lg:overflow-visible lg:opacity-100 lg:mr-20 md:-mr-8  lg:-mt-4  md:max-w-1/4 md:overflow-hidden md:opacity-0">
             Nom
@@ -94,7 +94,7 @@ const Fournisseur = ({formFour,setFormFour,handleChangeFour}) => {
             value={formFour.telephone}
           ></input>
         </div>
-      </form>
+      
     </div>
   );
 };

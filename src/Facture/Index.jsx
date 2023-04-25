@@ -5,6 +5,11 @@ import DatedeCommande from "../Component/detail_content/DatedeCommande";
 import TableauDeCommande from "../Component/detail_content/TableauDeCommande";
 import Footer from "../Component/detail_content/Footer";
 import { API, Token } from "../util/constante";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import pdfMake from "pdfmake/build/pdfmake";
+import { getDocumentDefinition } from "../Facture/PDF";
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import axios from "axios";
 
 export default function Index() {
@@ -53,7 +58,7 @@ export default function Index() {
   const [formListOfLigneCommande, setFormListOfLigneCommande] = useState(
     initialStateligneDeCommande
   );
-  const [codeFacture, setCodeFacture] = useState("Facture ");
+  const [codeFacture, setCodeFacture] = useState("Facture");
   const [categories, setCategories] = useState("");
   const [ligne_commande, setligne_commande] = useState([]);
   const [description, setDescriptions] = useState("");
@@ -70,10 +75,7 @@ export default function Index() {
     setFormFour({ ...formFour, [name]: value });
   };
 
-
-
-  
-  const handleChangeCodeFacture= async (e) => {
+  const handleChangeCodeFacture = async (e) => {
     const { name, value } = e.target;
     setCodeFacture({ ...codeFacture, [name]: value });
   };
@@ -105,13 +107,15 @@ export default function Index() {
   }, 0);
 
   const downloadPdf = () => {
+    console.log(formListOfLigneCommande);
     const documentDefinition = getDocumentDefinition(
       total,
       itemsPrice,
       formListOfLigneCommande,
       formCommande,
       formFour,
-      formValues
+      formValues,
+      codeFacture
     );
     pdfMake.createPdf(documentDefinition).open();
     //pdfMake.createPdf(docDefinition).open();
@@ -120,44 +124,39 @@ export default function Index() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    
+
+    const options = {
+      method: "POST",
+      url: `${API}/factures`,
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+      data: {
+        data: {
+          totalavectaxe: total.montantTotalavecTaxe,
+          clients: clientId.toString(),
+          date_echeance: formCommande.dateDecheance,
+          date_livraison: formCommande.dateLivraison,
+          date_facturation: formCommande.deteDaFacture,
+          totalsanstaxe: itemsPrice,
+          totalTaxe: total.taxe,
+          codeFacture: codeFacture,
+          ligne_factures: ligne_commande.map((client) => client).join(","),
+        },
+      },
+    };
+
     axios
       .request(options)
-      .then(function (response) {
-        let res = response.data.data.id.toString();
-        ligne_commande.push[{ res }];
-        const options = {
-          method: "POST",
-          url: `${API}/factures`,
-          headers: {
-            Authorization: `Bearer ${Token}`,
-          },
-          data: {
-            data: {
-              totalavectaxe: total.montantTotalavecTaxe,
-              clients: clientId.toString(),
-              date_echeance: formCommande.dateDecheance,
-              date_livraison: formCommande.dateLivraison,
-              date_facturation: formCommande.deteDaFacture,
-              totalsanstaxe: itemsPrice,
-              totalTaxe: total.taxe,
-              codeFacture : codeFacture,
-              ligne_factures: ligne_commande.map((client) => client).join(","),
-            },
-          },
-        };
-        axios
-          .request(options)
-          .then(function (response) {})
-          .catch(function (error) {
-            console.log(error);
-          });
-      })
+      .then(function (response) {})
       .catch(function (error) {
         console.log(error);
       });
   };
 
-  console.log(ligne_commande)
+  console.log(ligne_commande);
+  console.log(formValues);
   return (
     <div className=" ">
       <div className=" container  w-full  md:mx-auto lg:mx-auto sm:mx-auto h-screen md:px-4  lg:px-4   sm:px-4  ">
@@ -175,7 +174,7 @@ export default function Index() {
                           type="text"
                           value={codeFacture}
                           className="lg:border-default pl-4 mt-4 -ml-96  lg:border-background_button py-4 md:text-1.5rem lg:text-2rem   md:border-none  lg:border-solid "
-                         onChange={e => handleChangeCodeFacture(e)}
+                          onChange={(e) => handleChangeCodeFacture(e)}
                         ></input>
                       </h2>
                     </div>
@@ -239,7 +238,8 @@ export default function Index() {
                 <button
                   className="inline-flex items-center text-sm font-medium h-15  py-4  rounded-md border border-transparent text-white bg-black  focus:outline-none 
                       focus:ring-2 focus:ring-offset-2   w-48 justify-center "
-                  type="button" onClick={() => downloadPdf()}
+                  type="button"
+                  onClick={() => downloadPdf()}
                 >
                   telecharger une facture
                 </button>

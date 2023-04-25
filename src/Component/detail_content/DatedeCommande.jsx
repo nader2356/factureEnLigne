@@ -6,7 +6,7 @@ const DatedeCommande= ({formCommande,setFormCommande,handleChangeDatedeCommande}
 
     return (
         <div className="w-full  md:mb-4    ">
-        <form className=" ">
+      
           <div className=" md:mt-14 md:flex md:items-center ">
             <span className=" lg:overflow-visible lg:opacity-100 lg:mr-10 md:-mr-28  lg:-mt-4  md:max-w-1/4 md:overflow-hidden md:opacity-0">
               Date de Livraion 
@@ -34,7 +34,7 @@ const DatedeCommande= ({formCommande,setFormCommande,handleChangeDatedeCommande}
             ></input>
           </div>
        
-        </form>
+      
       </div>
     )
 }
