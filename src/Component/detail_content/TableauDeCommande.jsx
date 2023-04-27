@@ -141,14 +141,14 @@ const TableauDeCommande = ({
   return (
     <div className="overflow-x-auto rounded-lg lg:mt-4 md:-mt-8  bg-white  ">
       <table className="w-full border-collapse text-bg_button md:mb-4">
-        <thead className="lg:border-b-default  lg:border-t-default lg:border-black   md:overflow-hidden md:opacity-0 lg:overflow-visible lg:opacity-100">
+        <thead className="lg:border-b-default  lg:border-t-default lg:border-black   md:overflow-hidden md:opacity-0 sm:overflow-hidden sm:opacity-0 lg:overflow-visible lg:opacity-100 ">
           <tr>
             <th className=" p-3  pr-12  text-left "></th>
             <th className=" pt-2 pb-2 pl-2  tracking-wide text-left ">
               ARTICLE
             </th>
 
-            <th className="   pr-1 tracking-wide text-right  ">PRIX</th>
+            <th className="   pr-1 tracking-wide text-right   ">PRIX</th>
             <th className="   pr-1 tracking-wide text-right  ">QTTÉ</th>
             <th className=" pl-16  tracking-wide text-left   ">MONTANT</th>
             <th className="      tracking-wide  pl-32 pr-16">TAXES</th>

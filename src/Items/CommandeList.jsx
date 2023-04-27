@@ -146,7 +146,7 @@ const CommandeList = ({
   return (
     <>
       <tr className="  border-b-default border-dashed border-bg_input ">
-        <td className=" pb-32 border-none pl-3 ">
+        <td className=" pb-32 border-none pl-3  sm:pr-4  ">
           {" "}
           <button className="p-3 bg-bb text-ggg rounded-large min-w-2rem border-solid border-default border-background_button">
             <svg
@@ -167,11 +167,11 @@ const CommandeList = ({
           </button>
         </td>
 
-        <td className="pt-6 w-full    lg:grid-cols-1">
+        <td className="lg:pt-6 md:pt-6 sm:pr-5  w-full    lg:grid-cols-1">
           <span>
             <input
               type="text"
-              className="border-solid border-bg_input w-60  md:mb-4 pb-2 py-2 -ml-1   px-4 bg-white border-default "
+              className="border-solid border-bg_input w-60  md:mb-4 pb-2 py-2  sm:mb-4  px-4 bg-white border-default "
               name="nom"
               placeholder="ex: chaise"
               onChange={(e) => onHandle(e, index)}
@@ -192,7 +192,7 @@ const CommandeList = ({
           <span>
             <textarea
               type="textarea"
-              className="border-solid border-bg_input w-full md:mb-4 pb-2 py-1 px-4 ml-2 bg-white border-default "
+              className="border-solid border-bg_input w-full md:mb-4 pb-2 py-1 px-4 lg:ml-2 sm:mb-4 bg-white border-default "
               name="description"
               placeholder="Description"
               onChange={(e) => onHandleDescription(e, index)}
@@ -202,7 +202,7 @@ const CommandeList = ({
           <span>
             <input
               type="text"
-              className="border-solid border-bg_input w-full  md:mb-4 pb-2 py-2 px-5 ml-2 -mt-2  bg-white border-default text-left "
+              className="border-solid border-bg_input w-full  md:mb-4 pb-2 py-2 px-5 lg:ml-2 -mt-2  bg-white border-default text-left "
               name="categorie"
               onChange={(e) => onHandleCategorie(e, index)}
               placeholder="ex: Meuble"
@@ -215,7 +215,7 @@ const CommandeList = ({
           <span>
             <input
               type="number"
-              className="border-solid border-bg_input w-28  md:mb-4  py-2  bg-white border-default text-right "
+              className="border-solid border-bg_input w-28 sm:mb-6 md:mb-4  py-2  bg-white border-default text-right "
               name="prix"
               onChange={(e) => onHandlePrix(e, index)}
               value={parseInt(val.prix)}
@@ -228,7 +228,7 @@ const CommandeList = ({
             type="number"
             onChange={(e) => onHandlequantite(e, index)}
             name="quantite"
-            className="border-solid border-bg_input w-28   md:mb-4  py-2 text-black  bg-white border-default text-right "
+            className="border-solid border-bg_input w-28 sm:mb-8  md:mb-4  py-2 text-black  bg-white border-default text-right "
             value={parseInt(val.quantite)}
             placeholder="ex: 20,20"
           ></input>
@@ -238,18 +238,18 @@ const CommandeList = ({
             type="number"
             onChange={(e) => onHandleMontant(e, index)}
             name="montant"
-            className="border-solid border-bg_input w-28   md:mb-4  py-2 text-black  bg-white border-default text-right "
+            className="border-solid border-bg_input w-28  sm:mb-6 md:mb-4  py-2 text-black  bg-white border-default text-right "
             value={(val.montant = parseInt(val.quantite) * parseInt(val.prix))}
             placeholder="ex: 20,20"
           ></input>
         </td>
-        <td className="  pb-36 border-none pl-24 pr-6 pt-6 text-center w-full ">
+        <td className="  pb-36 border-none pl-24   pr-6 pt-6 text-center w-full ">
           <input
             type="checkbox"
             name="Taxe"
             checked={checkedState[index]}
-            className="p-3 h-7   rounded-large min-w-2rem "
-            onClick={(e) => onHandleChangeTaxe(e, index)}
+            className="p-3 h-7  sm:mb-3 rounded-large min-w-2rem "
+            onChange={(e) =>  onHandleChangeTaxe(e, index)}
             value={val.Taxe}
           />
         </td>

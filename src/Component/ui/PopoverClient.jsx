@@ -51,10 +51,13 @@ const PopoverClient = ({
     };
     axios.get(`${API}/clients/${id}`, config).then((response) => {
       let datas = response.data.data.attributes;
-      console.log(datas);
       setFormValues(datas);
-      console.log(formValues);
-     
+      formValues.nom = datas.nom + " " + datas.prenom;
+      formValues.email = datas.email;
+      formValues.telephone = datas.telephone;
+      formValues.codePostal = datas.codePostal;
+      formValues.Ville = datas.Ville;
+      formValues.adresse = datas.adresse;
     });
   };
 

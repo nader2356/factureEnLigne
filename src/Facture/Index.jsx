@@ -101,7 +101,6 @@ export default function Index() {
     },
     0
   );
-  console.log(total.montantTotalavecTaxe, formListOfLigneCommande);
   total.taxe = formListOfLigneCommande.reduce((cartTotal, cartItem) => {
     return (cartTotal += cartItem.taxeValeur);
   }, 0);
@@ -123,8 +122,6 @@ export default function Index() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    
 
     const options = {
       method: "POST",
@@ -155,48 +152,49 @@ export default function Index() {
       });
   };
 
-  console.log(ligne_commande);
-  console.log(formValues);
+
   return (
     <div className=" ">
-      <div className=" container  w-full  md:mx-auto lg:mx-auto sm:mx-auto h-screen md:px-4  lg:px-4   sm:px-4  ">
+      <div className=" container  w-full  md:mx-auto lg:mx-auto sm:mx-auto sm:h-screen  md:h-screen lg:h-screen md:px-4  lg:px-4  sm:px-4  ">
         <div className="flex flex-wrap   -ml-4">
           <div className=" relative grid w-full grid-cols-1  px-4">
             <form onSubmit={handleSubmit}>
               <div className="bg-white  w-full shadow-lg  my-12">
                 <div className="bg-black h-2"></div>
-                <div className="min-h-full   md:py-2     px-8 ">
-                  <div className="px-12">
-                    <div className="flex justify-between ">
+                <div className="md:min-h-full   relative md:py-2     lg:px-8 ">
+                  <div className="px-12 md:px-4">
+                    <div className="flex justify-between   !important ">
                       <h2 className="  mt-3 font-medium w-full  ">
                         {" "}
                         <input
                           type="text"
                           value={codeFacture}
-                          className="lg:border-default pl-4 mt-4 -ml-96  lg:border-background_button py-4 md:text-1.5rem lg:text-2rem   md:border-none  lg:border-solid "
+                          className="lg:border-default pl-4 mt-4 lg:-ml-96 md:-ml-40 lg:border-background_button py-4 md:text-1.5rem lg:text-2rem sm:text-1.5rem  md:border-none  lg:border-solid "
                           onChange={(e) => handleChangeCodeFacture(e)}
                         ></input>
                       </h2>
                     </div>
                   </div>
-                  <div className="  px-12">
-                    <div className="grid  lg:grid-cols-2 -mx-4 relative  w-full lg:px-4  ">
-                      <Fournisseur
-                        formFour={formFour}
-                        setFormFour={setFormFour}
-                        handleChangeFour={handleChangeFour}
-                      ></Fournisseur>
-                      <Client
-                        formValues={formValues}
-                        setFormValues={setFormValues}
-                        handleChangeClient={handleChangeClient}
-                        setClientId={setClientId}
-                      ></Client>
+                  <div className="  px-12 md:px-4">
+                    <div className="flex flex-wrap -mx-4">
+                      <div className="grid  lg:grid-cols-2   md:pb-2 relative px-4  sm:w-full md:w-full lg:px-4  ">
+                        <Fournisseur
+                          formFour={formFour}
+                          setFormFour={setFormFour}
+                          handleChangeFour={handleChangeFour}
+                        ></Fournisseur>
+                        <Client
+                          formValues={formValues}
+                          setFormValues={setFormValues}
+                          handleChangeClient={handleChangeClient}
+                          setClientId={setClientId}
+                        ></Client>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="border-t-default border-solid border-divider  mt-8 w-full  "></div>
-                  <div className="  px-12">
+                  <div className="border-t-default border-solid border-divider  mt-8 lg:w-full md:w-11/12 lg:ml-0 md:ml-6  "></div>
+                  <div className="  px-2 pt-2 pb-2">
                     <div className="grid  lg:grid-cols-2 md:grid-cols-1 -mx-4 relative  w-full lg:px-4  ">
                       <DatedeCommande
                         formCommande={formCommande}
@@ -227,25 +225,25 @@ export default function Index() {
                 </div>
               </div>
 
-              <div className="mb-16   flex justify-between">
+              <div className="mb-16  lg:flex sm:flex-row-reverse justify-between">
                 <button
-                  className="inline-flex items-center text-sm font-medium h-15  py-4 mr-5 rounded-md border border-transparent text-white bg-black  focus:outline-none 
-                      focus:ring-2 focus:ring-offset-2   w-48 justify-center "
+                  className="inline-flex items-center text-sm font-medium h-15  py-4 mr-5 rounded-md border border-transparent text-white bg-black  
+                        w-48 justify-center "
                   type="submit"
                 >
                   generer une facture
                 </button>
                 <button
-                  className="inline-flex items-center text-sm font-medium h-15  py-4  rounded-md border border-transparent text-white bg-black  focus:outline-none 
-                      focus:ring-2 focus:ring-offset-2   w-48 justify-center "
+                  className="inline-flex items-center text-sm font-medium h-15  py-4  rounded-md border border-transparent text-white bg-black  
+                        w-48 justify-center "
                   type="button"
                   onClick={() => downloadPdf()}
                 >
                   telecharger une facture
                 </button>
                 <button
-                  className="inline-flex items-center text-sm font-medium h-15  py-4  rounded-md border border-transparent text-white bg-black  focus:outline-none 
-                      focus:ring-2 focus:ring-offset-2   w-48 justify-center "
+                  className="inline-flex items-center text-sm font-medium h-15  py-4  rounded-md border border-transparent text-white bg-black   
+                     w-48 justify-center "
                   type="button"
                 >
                   initialiser une facture

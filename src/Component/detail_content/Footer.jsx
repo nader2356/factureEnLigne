@@ -3,7 +3,7 @@ const Footer = ({ total , montantTotal }) => {
 
   return (
     <div className="relative w-full text-right lg:ml-96">
-      <div className="pt-10 pb-10 ml-72">
+      <div className="pt-10 pb-10 lg:ml-72 sm:ml-20">
         <div className="w-4 -mb-4 flex ">
           <div className="min-w-130px">Sous-total</div>
           <div className="text-right  min-w-130px">

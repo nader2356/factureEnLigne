@@ -80,12 +80,7 @@ export const getDocumentDefinition = (
   formValues,
   codeFacture
 ) => {
-  console.log(itemsPrice);
-  console.log(formListOfLigneCommande);
-  console.log(formCommande);
-  console.log(formFour);
-  console.log(formValues);
-  console.log(total);
+  
 
   return {
     content: [
@@ -189,13 +184,13 @@ export const getDocumentDefinition = (
               color: "#454545",
             },
             {
-              text: `${formValues.nom}`,
+              text: `${formFour.nom}`,
               color: "#454545",
               margin: [0, 10, 0, 0],
               bold: true,
             },
             {
-              text: `${formValues.email}`,
+              text: `${formFour.email}`,
               margin: [0, 10, 0, 20],
               color: "#454545",
             },
