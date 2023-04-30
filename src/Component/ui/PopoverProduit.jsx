@@ -68,7 +68,6 @@ const PopoverProduits = ({
       <div className="   mb-2   ">
         {produits.map(
           (item, index) => (
-            console.log(item?.id),
             (
               <div key={index}>
                 <p

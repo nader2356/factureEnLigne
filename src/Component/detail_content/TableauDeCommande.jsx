@@ -75,6 +75,7 @@ const TableauDeCommande = ({
             axios
               .request(options)
               .then(function (response) {
+                let id = response.data.data.id;
                 const options = {
                   method: "POST",
                   url: `${API}/ligne-commandes`,
@@ -87,7 +88,7 @@ const TableauDeCommande = ({
                         formListOfLigneCommande[
                           formListOfLigneCommande.length - 1
                         ].quantite,
-                      produits: response.data.data.id.toString(),
+                      produits: id.toString(),
                     },
                   },
                 };
@@ -95,7 +96,21 @@ const TableauDeCommande = ({
                   .request(options)
                   .then(function (response) {
                     let res = response.data.data.id.toString();
-                    ligne_commande.push({ res });
+                    ligne_commande.push(res);
+                    console.log(ligne_commande);
+                    setFormListOfLigneCommande([
+                      ...formListOfLigneCommande,
+                      {
+                        nom: "",
+                        description: "",
+                        montant: 0,
+                        quantite: 1,
+                        prix: 0,
+                        Taxe: false,
+                        taxeValeur: 0,
+                        montantavecTaxe: 0,
+                      },
+                    ]);
                   })
                   .catch(function (error) {
                     console.log(error);
@@ -108,20 +123,8 @@ const TableauDeCommande = ({
           .catch(function (error) {
             console.log(error);
           });
-        setFormListOfLigneCommande([
-          ...formListOfLigneCommande,
-          {
-            nom: "",
-            description: "",
-            montant: 0,
-            quantite: 1,
-            prix: 0,
-            Taxe: false,
-            taxeValeur: 0,
-            montantavecTaxe: 0,
-          },
-        ]);
       } else {
+       
         setFormListOfLigneCommande([
           ...formListOfLigneCommande,
           {
@@ -144,14 +147,14 @@ const TableauDeCommande = ({
         <thead className="lg:border-b-default  lg:border-t-default lg:border-black   md:overflow-hidden md:opacity-0 sm:overflow-hidden sm:opacity-0 lg:overflow-visible lg:opacity-100 ">
           <tr>
             <th className=" p-3  pr-12  text-left "></th>
-            <th className=" pt-2 pb-2 pl-2  tracking-wide text-left ">
+            <th className=" pt-2 pb-2 pl-1  tracking-wide text-left ">
               ARTICLE
             </th>
 
             <th className="   pr-1 tracking-wide text-right   ">PRIX</th>
             <th className="   pr-1 tracking-wide text-right  ">QTTÉ</th>
             <th className=" pl-16  tracking-wide text-left   ">MONTANT</th>
-            <th className="      tracking-wide  pl-32 pr-16">TAXES</th>
+            <th className="      tracking-wide  pl-32 pr-14">TAXES</th>
           </tr>
         </thead>
         <tbody>
@@ -176,9 +179,9 @@ const TableauDeCommande = ({
             );
           })}
           <tr className=" lg:grid-flow-col border-b-default border-dashed border-bg_input  ">
-            <td className="pt-2 pb-2 border-none pl-4 ">
+            <td className="pt-2 pb-2 border-none pl-2 ">
               <button
-                className="p-3 bg-ffff text-rr rounded-large min-w-2rem   border-solid border-default border-background_button"
+                className="pl-4 pt-4 pb-4 pr-4 bg-ffff text-rr rounded-large min-w-2rem   border-solid border-default border-background_button"
                 onClick={CommandeDetailsListAddField("add")}
               >
                 <svg

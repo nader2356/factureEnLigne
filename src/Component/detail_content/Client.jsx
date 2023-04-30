@@ -4,6 +4,7 @@ import PopoverClient from "../ui/PopoverClient";
 export default function Client({
   formValues,
   setFormValues,
+  handleChangeClient,
   setClientId,
   clientId,
 }) {
@@ -13,23 +14,21 @@ export default function Client({
 
   const handleChangeNom = (e) => {
     const { name } = e.target;
-    setFormValues((prevState) => ({
-      formValues: {
-        ...prevState.formValues,
-        name: e.target.value,
-      },
-    })),
-      setToggleShowOfClient(true);
+    setFormValues({
+      ...formValues,
+      [name]: e.target.value,
+    });
+    setToggleShowOfClient(true);
   };
 
+ 
   const handleChangeAdresse = (e) => {
     const { name } = e.target;
-    setFormValues((prevState) => ({
-      formValues: {
-        ...prevState.formValues,
-        name: e.target.value,
-      },
-    }))
+    setFormValues({
+      ...formValues,
+      [name]: e.target.value,
+    });
+   
   };
   const handleChangeEmail = (e) => {
     const { name } = e.target;
@@ -37,6 +36,7 @@ export default function Client({
       ...formValues,
       [name]: e.target.value,
     });
+    
   };
 
   const handleChangeCodePostal = (e) => {
@@ -59,7 +59,7 @@ export default function Client({
       ...formValues,
       [name]: e.target.value,
     });
-    setShowDetailOfAdresse(false);
+    setShowDetailOfAdresse(false)
   };
 
   return (
@@ -79,6 +79,7 @@ export default function Client({
             selectedClient={selectedClient}
             setToggleShowOfClient={setToggleShowOfClient}
             formValues={formValues}
+            setClientId={setClientId}
             toggleShowOfClient={toggleShowOfClient}
             handleChangeNom={handleChangeNom}
             setFormValues={setFormValues}
@@ -95,7 +96,7 @@ export default function Client({
             name="email"
             onChange={(e) => handleChangeEmail(e)}
             placeholder="ex: proxym@gmail.com"
-            value={formValues.email}
+            value={formValues.email }
           ></input>
         </div>
         <div className=" md:-mt-1 md:flex md:items-center  ">

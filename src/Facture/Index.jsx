@@ -11,13 +11,14 @@ import { getDocumentDefinition } from "../Facture/PDF";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import axios from "axios";
+import moment from "moment";
 
 export default function Index() {
   const initialStateClient = {
     nom: "",
     email: "",
     telephone: "",
-    adresseRue: "",
+    adresse: "",
     ville: "",
     codePostal: "",
   };
@@ -121,8 +122,9 @@ export default function Index() {
   };
 
   const handleSubmit = async (e) => {
+    console.log(clientId);
     e.preventDefault();
-
+    let clientIds = clientId.toString();
     const options = {
       method: "POST",
       url: `${API}/factures`,
@@ -132,14 +134,22 @@ export default function Index() {
       data: {
         data: {
           totalavectaxe: total.montantTotalavecTaxe,
-          clients: clientId.toString(),
-          date_echeance: formCommande.dateDecheance,
-          date_livraison: formCommande.dateLivraison,
-          date_facturation: formCommande.deteDaFacture,
+          clients: clientIds,
+          date_echeance: moment(formCommande.dateDecheance).format(
+            "YYYY-DD-MM"
+          ),
+          date_livraison: moment(formCommande.dateLivraison).format(
+            "YYYY-DD-MM"
+          ),
+          date_facturation: moment(formCommande.deteDaFacture).format(
+            "YYYY-DD-MM"
+          ),
           totalsanstaxe: itemsPrice,
           totalTaxe: total.taxe,
           codeFacture: codeFacture,
-          ligne_factures: ligne_commande.map((client) => client).join(","),
+          ligne_factures: console.log(
+            ligne_commande.map((client) => client).join(",")
+          ),
         },
       },
     };
@@ -151,7 +161,6 @@ export default function Index() {
         console.log(error);
       });
   };
-
 
   return (
     <div className=" ">

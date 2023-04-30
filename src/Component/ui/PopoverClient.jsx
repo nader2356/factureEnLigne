@@ -51,13 +51,14 @@ const PopoverClient = ({
     };
     axios.get(`${API}/clients/${id}`, config).then((response) => {
       let datas = response.data.data.attributes;
-      setFormValues(datas);
-      formValues.nom = datas.nom + " " + datas.prenom;
-      formValues.email = datas.email;
-      formValues.telephone = datas.telephone;
-      formValues.codePostal = datas.codePostal;
-      formValues.Ville = datas.Ville;
-      formValues.adresse = datas.adresse;
+      setFormValues({
+        nom: datas.nom + " " + datas.prenom,
+        email: datas.email,
+        telephone: datas.telephone,
+        adresse: datas.adresse,
+        Ville: datas.Ville,
+        codePostal: datas.codePostal,
+      });
     });
   };
 
@@ -107,7 +108,7 @@ const PopoverClient = ({
                 className="pl-8 pt-5  pb-5 text-sm text-left hover:bg-panel"
                 onClick={() => {
                   setSelected(item?.nom + " " + item?.prenom);
-                  console.log(selectedClient);
+                  setClientId(item?.id);
                   if (selectedClient != "") {
                     setToggleShowOfClient(false);
                     fetchClientById(item?.id);
